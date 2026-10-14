@@ -22,9 +22,15 @@ jobs:
         run: pip install -r requirements.txt
       - name: Check data and tests
         run: |
-          node --test tests/test_geo.mjs
+          node --check src/geo.mjs
+          node --check src/main.mjs
+          node --check src/names.mjs
+          node --check src/mesh-details.mjs
+          node --test tests/*.mjs
           python -m unittest discover -s tests -p 'test_*.py'
           python -m json.tool data/listings.json >/dev/null
+          python -m json.tool data/licensed_lodging.json >/dev/null
+          if [ -f data/permit_coordinates.json ]; then python -m json.tool data/permit_coordinates.json >/dev/null; fi
   deploy:
     if: github.event_name != 'pull_request'
     needs: validate
