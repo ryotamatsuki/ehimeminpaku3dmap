@@ -1,0 +1,45 @@
+name: Import CC BY licensed lodging names
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '18 5 17 * *'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/import_licensed_lodging.py'
+      - '.github/workflows/permit-names.yml'
+permissions:
+  contents: write
+concurrency:
+  group: permitted-lodging-import
+  cancel-in-progress: false
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: pip install requests
+      - name: Import officially CC BY-licensed lists without booking-site scraping
+        run: python scripts/import_licensed_lodging.py --inspect
+      - name: Inspect exported names and license
+        run: |
+          python - <<'PY'
+          import json
+          d=json.load(open('data/licensed_lodging.json'))
+          assert d['facilities'] and all(x['license']=='CC BY 4.0' for x in d['facilities'])
+          print('Named licensed lodgings:',len(d['facilities']))
+          print('Sources:',d['sources'])
+          print('Warnings:',d['warnings'])
+          PY
+      - name: Commit licensed public facility data
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/licensed_lodging.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'data: update CC BY licensed accommodation names [skip ci]'
+            git push
+          fi
