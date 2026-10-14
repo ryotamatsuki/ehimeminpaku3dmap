@@ -121,7 +121,9 @@ def current_source(session: requests.Session) -> tuple[str,str]:
     parsed=SourceLinks();parsed.feed(response.text)
     candidates=[(href,label) for href,label in parsed.links if
                 '届出住宅一覧' in label and '.pdf' in href.lower()]
-    if not candidates:raise ValueError('Official landing page does not expose a recognizable listings PDF')
+    if not candidates:
+        print('WARNING: Cannot discover current PDF link from landing page; using pinned 2026-08-31 source.',file=sys.stderr)
+        return DEFAULT_URL,'2026-08-31'
     href,label=candidates[0]
     match=re.search(r'令和\s*(\d+)年\s*(\d+)月\s*(\d+)日',label)
     if not match:raise ValueError('Cannot parse official PDF snapshot date')
