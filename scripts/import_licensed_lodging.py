@@ -134,7 +134,7 @@ def find_city_xlsx(session):
     matches=[urljoin(CITY_URL,href) for href,title in parser.links
              if "旅館全施設" in title and (".xlsx" in href.lower() or ".xls" in href.lower())]
     matches=[u for u in matches if urlparse(u).hostname=="www.city.matsuyama.ehime.jp" and u.lower().endswith(".xlsx")]
-    if not matches:raise RuntimeError("No clearly labeled Matsuyama complete registry XLSX found")
+    if not matches:\n        print("DEBUG CITY:",[(u,t) for u,t in parser.links if "旅館" in t or ".xlsx" in u.lower()][:12],flush=True)\n        raise RuntimeError("No clearly labeled Matsuyama complete registry XLSX found")
     return matches[0]
 
 def find_pref_xlsx(session):
@@ -144,7 +144,7 @@ def find_pref_xlsx(session):
     matches=[urljoin(PREF_URL,href) for href,title in parser.links
              if "令和７年12月末時点" in title and ".xlsx" in href.lower()]
     matches=[u for u in matches if urlparse(u).hostname=="www.pref.ehime.jp" and u.lower().endswith(".xlsx")]
-    if not matches:raise RuntimeError("Prefecture catalog requires dedicated resource URL discovery; not guessing")
+    if not matches:\n        print("DEBUG PREF:",[(u,t) for u,t in parser.links if ".xlsx" in u.lower() or "ダウンロード" in t][:15],flush=True)\n        raise RuntimeError("Prefecture catalog requires dedicated resource URL discovery; not guessing")
     return matches[0]
 
 def run(session, only="all", inspect=False):
