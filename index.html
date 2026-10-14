@@ -37,7 +37,15 @@
       <p class="micro">国土地理院の住所検索に接続します。地番が解決されない場合、町域の代表点となることがあります。</p>
     </section>
     <section class="control"><div class="section-header"><span>04</span><h2>自治体別の掲載数</h2></div><div id="ranking" class="ranking"></div></section>
-    <footer class="panel-footer">
+    <section class="control" id="permit-section">
+ <div class="section-header"><span>05</span><h2>公開宿泊施設名（旅館業法）</h2></div>
+ <p id="permit-summary" class="micro">公開データ取得中…</p>
+ <label for="permit-search">施設名・住所を検索</label>
+ <input type="search" id="permit-search" placeholder="施設名・住所で絞り込み" autocomplete="off">
+ <div id="permit-list" class="permit-list"></div>
+ <p class="micro" id="permit-note">旅館業許可施設は、住宅宿泊事業法の届出民泊とは別制度です。</p>
+</section>
+<footer class="panel-footer">
       <strong>データの読み方</strong>
       <p id="data-warning">位置精度とデータの網羅性を確認中です。</p>
       <p>住宅宿泊事業法の届出住宅のみ。旅館業法の簡易宿所は対象外。非公表所在地、営業実態、稼働率等は把握できません。</p>
@@ -52,7 +60,7 @@
       <h1 id="map-label">愛媛県 <span>民泊集中度</span></h1><div class="date" id="map-date">PUBLIC DATA / LOADING</div></div>
     <div class="coverage" id="coverage">地図を準備しています</div>
     <div class="legend"><div>3D柱 = メッシュ内の掲載数</div><div class="gradient"></div><div class="range"><span>少ない</span><span>多い</span></div><p>相対的な色分け。柱の高さは件数であり、建物の高さではありません。</p></div>
-    <div class="details" id="details" hidden><button id="close-detail" aria-label="詳細を閉じる">×</button><div class="details-kicker">SELECTED MESH</div><h2 id="detail-count">—</h2><p id="detail-meta"></p></div>
+    <div class="details" id="details" hidden><button id="close-detail" aria-label="詳細を閉じる">×</button><div class="details-kicker">SELECTED MESH</div><h2 id="detail-count">—</h2><p id="detail-meta"></p><div id="detail-names" class="detail-names"></div></div>
     <div class="map-failed" id="map-failed" hidden>地図を読み込めませんでした。インターネット接続をご確認ください。</div>
   </main>
 </div>

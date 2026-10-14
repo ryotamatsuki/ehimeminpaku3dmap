@@ -1,6 +1,7 @@
 import {MUNICIPALITIES, municipality, cityCounts, aggregate, geojson, metricCount, norm, siteKey} from './geo.mjs';
+import {filterPermits,matchingAddressCandidates,officialUrl} from './names.mjs';
 const $=id=>document.getElementById(id);
-let records=[], metadata={}, map=null, mapReady=false, busy=false, gridCells=new Map(), size=1000, metric='listings', city='all', includeApprox=false;
+let records=[], permits=[], permitMeta={}, metadata={}, map=null, mapReady=false, busy=false, gridCells=new Map(), size=1000, metric='listings', city='all', includeApprox=false;
 const SOURCE='https://www.pref.ehime.jp/page/57100.html';
 const setText=(id,value)=>{$(id).textContent=String(value)};
 function baseAddress(a){const n=norm(a).replace(/^愛媛県/,'');return siteKey(n).replace(/\s+.*$/,'')}
@@ -23,6 +24,36 @@ function initMap(){
  map.on('error',()=>{if(!mapReady)$('map-failed').hidden=false});
  }catch(err){$('map-failed').hidden=false;console.error(err)}
 }
+function renderPermits(){
+ const input=$('permit-search'),filtered=filterPermits(permits,city,input.value);
+ setText('permit-summary',permits.length?
+   '旅館業許可施設 '+filtered.length+' 件（公開名称収録 '+permits.length+' 件）':
+   '公開名称を取得中、または現在利用できません');
+ const box=$('permit-list');box.replaceChildren();
+ for(const p of filtered.slice(0,30)){
+  const wrap=document.createElement('div');wrap.className='permit-item';
+  const title=document.createElement('strong');title.textContent=p.name;
+  const address=document.createElement('span');address.textContent=p.address;
+  wrap.append(title,address);
+  const url=officialUrl(p.source_page);
+  if(url){const link=document.createElement('a');link.href=url;link.target='_blank';
+    link.rel='noopener noreferrer';link.textContent='出典 ↗';wrap.append(link);}
+  box.append(wrap);
+ }
+ if(filtered.length>30){const more=document.createElement('p');more.textContent='先頭30件のみ表示。名称・住所で検索してください。';box.append(more);}
+ setText('permit-note',permitMeta.warnings?.length?
+   '一部の自治体データをまだ収録できていません。旅館業許可と民泊届出は別制度です。':
+   '住宅宿泊事業の届出住宅とは別制度です。休廃業中の施設を含む場合があります。');
+}
+async function loadPermits(){
+ try{
+  const response=await fetch('./data/licensed_lodging.json',{cache:'no-store'});
+  if(!response.ok)throw new Error('not found');
+  permitMeta=await response.json();permits=Array.isArray(permitMeta.facilities)?permitMeta.facilities:[];
+ }catch(e){permits=[];permitMeta={warnings:[]}}
+ renderPermits();
+}
+
 function fillCitySelect(){
  const sel=$('city');sel.innerHTML='<option value="all">愛媛県全域</option>';
  for(const name of MUNICIPALITIES){const o=document.createElement('option');o.value=name;o.textContent=name;sel.append(o)}
@@ -51,7 +82,22 @@ function render(){
 }
 function showDetails(id){const c=gridCells.get(id);if(!c)return;
  $('details').hidden=false;setText('detail-count',`${c.count} ${metric==='sites'?'推定所在地':'届出住宅'}`);
+ renderAddressCandidates(c.records);
  setText('detail-meta',`${size}mメッシュ / 届出住宅 ${c.total} 件 / 町域などの代表点 ${c.approx} 件を含む可能性があります。住所検索結果は実際の建物位置を保証しません。`);
+}
+function renderAddressCandidates(recordsInCell){
+ const candidates=matchingAddressCandidates(recordsInCell,permits),node=$('detail-names');
+ node.replaceChildren();
+ if(!candidates.length)return;
+ const heading=document.createElement('strong');
+ heading.textContent='同一住所に掲載された旅館業許可施設（別制度・同一施設か未確認）';
+ node.append(heading);
+ for(const f of candidates.slice(0,8)){
+  const line=document.createElement('p');line.textContent=f.name+'（'+f.address+'）';
+  const link=document.createElement('a'),url=officialUrl(f.source_page);
+  if(url){link.href=url;link.target='_blank';link.rel='noopener noreferrer';link.textContent='出典 ↗';line.append(' ',link)}
+  node.append(line);
+ }
 }
 function flyToSelected(){if(!mapReady)return;
  if(VIEW[city])map.flyTo({...VIEW[city],pitch:56,bearing:-18,duration:900});
@@ -64,7 +110,7 @@ function flyToSelected(){if(!mapReady)return;
  }
 }
 function makeControls(){
- fillCitySelect();$('city').addEventListener('change',e=>{city=e.target.value;flyToSelected();render()});
+ fillCitySelect();$('permit-search').addEventListener('input',renderPermits);$('city').addEventListener('change',e=>{city=e.target.value;flyToSelected();render();renderPermits()});
  document.querySelectorAll('[data-place]').forEach(b=>b.addEventListener('click',()=>{city=b.dataset.place;$('city').value=city;flyToSelected();render()}));
  document.querySelectorAll('[data-size]').forEach(b=>b.addEventListener('click',()=>{size=Number(b.dataset.size);document.querySelectorAll('[data-size]').forEach(x=>x.classList.toggle('selected',x===b));render()}));
  document.querySelectorAll('[data-metric]').forEach(b=>b.addEventListener('click',()=>{metric=b.dataset.metric;document.querySelectorAll('[data-metric]').forEach(x=>x.classList.toggle('selected',x===b));render()}));
@@ -128,8 +174,9 @@ async function load(){
   const res=await fetch('./data/listings.json',{cache:'no-store'});if(!res.ok)throw new Error(`HTTP ${res.status}`);
   const payload=await res.json();metadata=payload;records=(payload.records||[]).map((r,i)=>({id:i+1,...r,city:r.city||municipality(r.address)}));
   const cache=cacheRead();for(const r of records){if(!r.coord&&cache[baseAddress(r.address)])Object.assign(r,cache[baseAddress(r.address)])}
-  renderRanking();render();
+  renderRanking();render();renderPermits();
   setText('geocode-status',`読込完了：${records.length}件。座標あり ${records.filter(r=>r.coord).length}件。未取得の住所はボタンで変換できます。`);
  }catch(e){setText('geocode-status',`データ読み込み失敗：${e.message}。ローカル起動は python -m http.server を利用してください。`)}
 }
 load();
+loadPermits();
