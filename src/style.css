@@ -22,3 +22,27 @@ button,select{font:inherit}button{cursor:pointer}button:focus-visible,a:focus-vi
 .permit-item a,.detail-names a{font-size:11px;color:#75e2c8;text-decoration:underline}
 .detail-names{margin-top:10px;max-height:200px;overflow:auto;font-size:12px}
 .detail-names p{margin:7px 0;overflow-wrap:anywhere}
+
+/* Touch-enabled mesh detail panel with legally distinct public facility records. */
+.details{width:min(470px,calc(100% - 40px));max-width:470px;max-height:calc(100% - 170px);
+ display:flex;flex-direction:column;padding:20px;z-index:15;overflow:hidden}
+.details h2{font-size:19px;margin:12px 22px 5px 0}
+.details>.details-kicker,.details>h2,.details>#detail-meta{flex:none}
+.details #detail-meta{margin:6px 0 11px;font-size:11px}
+.details #detail-names{flex:1;min-height:0;max-height:none;overflow-y:auto;padding:0 4px 4px 0}
+.details #detail-names .mesh-category{border-top:1px solid #3b555e;padding:12px 0}
+.mesh-category h3{font-size:13px;color:#f1e1b2;margin:0 0 5px}
+.mesh-category .mesh-category-note,.mesh-empty{color:#afc5cc;font-size:10px;line-height:1.55;margin:5px 0 8px}
+.mesh-facility{border:1px solid #38525d;background:#132b35;border-radius:8px;padding:10px;margin:8px 0}
+.mesh-facility-title{display:flex;align-items:start;justify-content:space-between;gap:8px}
+.mesh-facility-title strong{font-size:13px;line-height:1.45;color:#f7f8f5;overflow-wrap:anywhere}
+.mesh-facility-kind{font-size:9px;color:#d9e8e8;border:1px solid #60777c;white-space:nowrap;border-radius:5px;padding:3px 5px}
+.mesh-facility p{margin:6px 0 3px!important;line-height:1.6;color:#c9d9d7;font-size:11px}
+.mesh-facility .mesh-facility-quality{color:#8eabb4;font-size:10px}
+.mesh-facility a{color:#83e1cd;font-size:11px}
+@media(max-width:800px){
+ .details{position:fixed;top:auto;bottom:0;left:0;right:0;width:100%;max-width:none;
+  height:min(62dvh,600px);max-height:80dvh;border-radius:14px 14px 0 0;z-index:50;
+  padding:15px 18px max(16px,env(safe-area-inset-bottom));box-shadow:0 -14px 42px #000a}
+ .details h2{font-size:18px}
+}

@@ -1,7 +1,8 @@
 import {MUNICIPALITIES, municipality, cityCounts, aggregate, geojson, metricCount, norm, siteKey} from './geo.mjs';
-import {filterPermits,matchingAddressCandidates,officialUrl} from './names.mjs';
+import {filterPermits,officialUrl} from './names.mjs';
+import {meshIdAt,inspectMesh,pointsGeoJSON,selectionGeoJSON} from './mesh-details.mjs';
 const $=id=>document.getElementById(id);
-let records=[], permits=[], permitMeta={}, metadata={}, map=null, mapReady=false, busy=false, gridCells=new Map(), size=1000, metric='listings', city='all', includeApprox=false;
+let records=[], permits=[], permitMeta={}, permitCoords={}, permitCoordMeta={}, metadata={}, map=null, mapReady=false, busy=false, gridCells=new Map(), visibleRecords=[], selectedId=null, selectedCenter=null, size=1000, metric='listings', city='all', includeApprox=false;
 const SOURCE='https://www.pref.ehime.jp/page/57100.html';
 const setText=(id,value)=>{$(id).textContent=String(value)};
 function baseAddress(a){const n=norm(a).replace(/^愛媛県/,'');return siteKey(n).replace(/\s+.*$/,'')}
@@ -15,10 +16,27 @@ function initMap(){
  map.addControl(new maplibregl.NavigationControl({showCompass:true,visualizePitch:true}),'top-right');
  map.on('load',()=>{
    mapReady=true;map.addSource('density',{type:'geojson',data:{type:'FeatureCollection',features:[]}});
+   map.addSource('permit-points',{type:'geojson',data:pointsGeoJSON(permits,permitCoords,city)});
+   map.addSource('selected-mesh',{type:'geojson',data:selectionGeoJSON(null,size)});
    map.addLayer({id:'bars',type:'fill-extrusion',source:'density',paint:{'fill-extrusion-color':['get','color'],'fill-extrusion-height':['get','height'],'fill-extrusion-base':0,'fill-extrusion-opacity':.84}});
    map.addLayer({id:'outlines',type:'line',source:'density',paint:{'line-color':'#92f3e4','line-width':.6,'line-opacity':.5}});
-   map.on('click','bars',e=>{const id=e.features?.[0]?.properties?.id;if(id)showDetails(id)});
-   map.on('mouseenter','bars',()=>{map.getCanvas().style.cursor='pointer'});map.on('mouseleave','bars',()=>{map.getCanvas().style.cursor='' });
+   map.addLayer({id:'permit-markers',type:'circle',source:'permit-points',paint:{
+     'circle-color':'#ffd38c','circle-radius':['interpolate',['linear'],['zoom'],8,2,11,3.5,15,5],
+     'circle-opacity':.95,'circle-stroke-color':'#08151f','circle-stroke-width':1}});
+   map.addLayer({id:'selected-mesh-fill',type:'fill',source:'selected-mesh',paint:{'fill-color':'#f9d68b','fill-opacity':.15}});
+   map.addLayer({id:'selected-mesh-outline',type:'line',source:'selected-mesh',paint:{'line-color':'#ffe59f','line-width':3,'line-opacity':1}});
+   map.on('click',e=>{
+     const hovered=map.queryRenderedFeatures(e.point,{layers:['permit-markers','bars']});
+     const named=hovered.find(f=>f.layer.id==='permit-markers');
+     const bar=hovered.find(f=>f.layer.id==='bars');
+     if(named){selectAt(named.geometry.coordinates[0],named.geometry.coordinates[1]);return;}
+     if(bar?.properties?.id){selectMeshId(String(bar.properties.id));return;}
+     selectAt(e.lngLat.lng,e.lngLat.lat);
+   });
+   for(const layerId of ['bars','permit-markers']){
+      map.on('mouseenter',layerId,()=>{map.getCanvas().style.cursor='pointer'});
+      map.on('mouseleave',layerId,()=>{map.getCanvas().style.cursor=''});
+   }
    render();
  });
  map.on('error',()=>{if(!mapReady)$('map-failed').hidden=false});
@@ -51,7 +69,22 @@ async function loadPermits(){
   if(!response.ok)throw new Error('not found');
   permitMeta=await response.json();permits=Array.isArray(permitMeta.facilities)?permitMeta.facilities:[];
  }catch(e){permits=[];permitMeta={warnings:[]}}
- renderPermits();
+ renderPermits();updatePermitMarkers();if(selectedId)showDetails(selectedId);
+}
+async function loadPermitCoordinates(){
+ try{
+   const response=await fetch('./data/permit_coordinates.json',{cache:'no-store'});
+   if(!response.ok)throw new Error('coordinates not published yet');
+   permitCoordMeta=await response.json();permitCoords=permitCoordMeta.coordinates||{};
+ }catch(e){permitCoords={};permitCoordMeta={summary:{attempted:0,street:0,total:permits.length}};}
+ updatePermitMarkers();if(selectedId)showDetails(selectedId);
+}
+function updatePermitMarkers(){
+ if(mapReady)map.getSource('permit-points').setData(pointsGeoJSON(permits,permitCoords,city));
+ const done=permitCoordMeta.summary?.street||0;
+ setText('permit-coords',done
+   ? '番地レベル位置一致 '+done+' 件。オレンジ色の点をタップして施設情報を表示できます。'
+   : '公開施設名の座標を検証中。確実な位置がない施設は地図内の所属と断定しません。');
 }
 
 function fillCitySelect(){
@@ -64,7 +97,7 @@ function renderRanking(){
 }
 function render(){
  const {cells,filtered,positioned,missing}=aggregate(records,{size,metric,city,includeApprox});
- gridCells=new Map(cells.map(c=>[c.id,c]));
+ gridCells=new Map(cells.map(c=>[c.id,c]));visibleRecords=positioned;
  if(mapReady)map.getSource('density').setData(geojson(cells,size));
  setText('total-count',records.length.toLocaleString('ja-JP'));
  setText('visible-count',metricCount(positioned,metric).toLocaleString('ja-JP'));
@@ -78,26 +111,69 @@ function render(){
  const status=metadata.scope==='prefecture'?'県全域の届出所在地をPDFから自動抽出したデータです。原本照合は未実施です。':'現行収録データは松山市の手動転記146行だけです。他市町の件数が0件という意味ではありません。';
  setText('data-warning',`${status} 座標変換に失敗した住所や低精度の代表点があり、細粒度の集中度は過信できません。`);
  $('geocode').textContent=`座標未取得の住所を検索（${records.filter(r=>!r.coord).length}件）`;
- $('details').hidden=true;
+ if(selectedCenter)selectedId=meshIdAt(selectedCenter[0],selectedCenter[1],size);
+ if(selectedId)showDetails(selectedId);
+ else $('details').hidden=true;
 }
-function showDetails(id){const c=gridCells.get(id);if(!c)return;
- $('details').hidden=false;setText('detail-count',`${c.count} ${metric==='sites'?'推定所在地':'届出住宅'}`);
- renderAddressCandidates(c.records);
- setText('detail-meta',`${size}mメッシュ / 届出住宅 ${c.total} 件 / 町域などの代表点 ${c.approx} 件を含む可能性があります。住所検索結果は実際の建物位置を保証しません。`);
+function selectAt(lon,lat){
+ selectedCenter=[lon,lat];selectMeshId(meshIdAt(lon,lat,size));
 }
-function renderAddressCandidates(recordsInCell){
- const candidates=matchingAddressCandidates(recordsInCell,permits),node=$('detail-names');
- node.replaceChildren();
- if(!candidates.length)return;
- const heading=document.createElement('strong');
- heading.textContent='同一住所に掲載された旅館業許可施設（別制度・同一施設か未確認）';
- node.append(heading);
- for(const f of candidates.slice(0,8)){
-  const line=document.createElement('p');line.textContent=f.name+'（'+f.address+'）';
-  const link=document.createElement('a'),url=officialUrl(f.source_page);
-  if(url){link.href=url;link.target='_blank';link.rel='noopener noreferrer';link.textContent='出典 ↗';line.append(' ',link)}
-  node.append(line);
+function selectMeshId(id){
+ if(!id)return;
+ selectedId=id;
+ const [i,j]=id.split(':').map(Number);
+ // Preserve the center when the mesh resolution changes.
+ const s=selectionGeoJSON(id,size).features[0]?.geometry?.coordinates?.[0];
+ if(s){selectedCenter=[(s[0][0]+s[2][0])/2,(s[0][1]+s[2][1])/2];}
+ showDetails(id);
+}
+function facilityCard({name,address,kind,precision,sourceUrl}){
+ const card=document.createElement('article');card.className='mesh-facility';
+ const head=document.createElement('div');head.className='mesh-facility-title';
+ const title=document.createElement('strong');title.textContent=name;
+ const badge=document.createElement('span');badge.className='mesh-facility-kind';badge.textContent=kind;
+ head.append(title,badge);card.append(head);
+ const location=document.createElement('p');location.textContent=address;card.append(location);
+ const info=document.createElement('p');info.className='mesh-facility-quality';info.textContent=precision;card.append(info);
+ const url=officialUrl(sourceUrl);
+ if(url){const a=document.createElement('a');a.textContent='自治体の公開情報 ↗';a.href=url;a.target='_blank';a.rel='noopener noreferrer';card.append(a);}
+ return card;
+}
+function detailsSection(container,title,desc,items){
+ const section=document.createElement('section');section.className='mesh-category';
+ const header=document.createElement('h3');header.textContent=title;section.append(header);
+ const note=document.createElement('p');note.className='mesh-category-note';note.textContent=desc;section.append(note);
+ if(items.length===0){
+  const empty=document.createElement('p');empty.className='mesh-empty';empty.textContent='該当する確認済みデータはありません。';section.append(empty);
+ }else{for(const item of items)section.append(facilityCard(item));}
+ container.append(section);
+}
+function showDetails(id){
+ const selected=gridCells.get(id);
+ const declared=selected?.records||[];
+ const result=inspectMesh(id,size,declared,permits,permitCoords,city);
+ const {permitted,addressCandidates}=result;
+ $('details').hidden=false;
+ if(mapReady)map.getSource('selected-mesh').setData(selectionGeoJSON(id,size));
+ setText('detail-count',`届出 ${declared.length}件 / 名称付き ${permitted.length}件`);
+ setText('detail-meta',`${size}mメッシュ。届出住宅と旅館業許可施設を別々に表示しています。施設名が届出民泊の名前であることを意味しません。`);
+ const panel=$('detail-names');panel.replaceChildren();
+ detailsSection(panel,`届出民泊 ${declared.length}件`,
+  '県の公開一覧に営業名称はありません。住所と届出所在地の座標精度を表示します。',
+  declared.map(r=>({name:'名称未掲載（届出住宅）',address:r.address,kind:'住宅宿泊事業法',
+    precision:r.precision==='street'?'地番照合座標（推定）':'町域等の代表点（位置不確実）',sourceUrl:SOURCE})));
+ detailsSection(panel,`範囲内の公開名称施設 ${permitted.length}件`,
+  '住所検索で地番レベルまで照合した旅館業法の許可施設。位置は推定であり、届出民泊とは別制度です。',
+  permitted.map(p=>({name:p.name,address:p.address,kind:'旅館業法',
+    precision:'地番照合座標（推定）',sourceUrl:p.source_page})));
+ if(addressCandidates.length){
+  detailsSection(panel,`同一住所の参考候補 ${addressCandidates.length}件`,
+   '届出住宅と住所文字列が一致。ただし位置精度不足や座標不整合があり、同一営業施設とは確認できません。',
+   addressCandidates.map(p=>({name:p.name,address:p.address,kind:'別制度・未確認',
+     precision:'住所一致のみ（同一施設を保証しません）',sourceUrl:p.source_page})));
  }
+ const footer=document.createElement('p');footer.className='mesh-category-note';
+ footer.textContent='低精度座標は名称付き施設の範囲内判定から除外しています。掲載数は現在の営業件数ではありません。';panel.append(footer);
 }
 function flyToSelected(){if(!mapReady)return;
  if(VIEW[city])map.flyTo({...VIEW[city],pitch:56,bearing:-18,duration:900});
@@ -110,12 +186,12 @@ function flyToSelected(){if(!mapReady)return;
  }
 }
 function makeControls(){
- fillCitySelect();$('permit-search').addEventListener('input',renderPermits);$('city').addEventListener('change',e=>{city=e.target.value;flyToSelected();render();renderPermits()});
- document.querySelectorAll('[data-place]').forEach(b=>b.addEventListener('click',()=>{city=b.dataset.place;$('city').value=city;flyToSelected();render()}));
+ fillCitySelect();$('permit-search').addEventListener('input',renderPermits);$('city').addEventListener('change',e=>{city=e.target.value;flyToSelected();render();renderPermits();updatePermitMarkers()});
+ document.querySelectorAll('[data-place]').forEach(b=>b.addEventListener('click',()=>{city=b.dataset.place;$('city').value=city;flyToSelected();render();renderPermits();updatePermitMarkers()}));
  document.querySelectorAll('[data-size]').forEach(b=>b.addEventListener('click',()=>{size=Number(b.dataset.size);document.querySelectorAll('[data-size]').forEach(x=>x.classList.toggle('selected',x===b));render()}));
  document.querySelectorAll('[data-metric]').forEach(b=>b.addEventListener('click',()=>{metric=b.dataset.metric;document.querySelectorAll('[data-metric]').forEach(x=>x.classList.toggle('selected',x===b));render()}));
  $('include-approx').addEventListener('change',e=>{includeApprox=e.target.checked;render()});
- $('geocode').addEventListener('click',geocodeMissing);$('close-detail').addEventListener('click',()=>{$('details').hidden=true});
+ $('geocode').addEventListener('click',geocodeMissing);$('close-detail').addEventListener('click',()=>{selectedId=null;selectedCenter=null;$('details').hidden=true;if(mapReady)map.getSource('selected-mesh').setData(selectionGeoJSON(null,size));});
 }
 function cacheRead(){try{return JSON.parse(localStorage.getItem('ehime-minpaku-geocode-v2')||'{}')}catch{return {}}}
 function cacheWrite(v){try{localStorage.setItem('ehime-minpaku-geocode-v2',JSON.stringify(v))}catch{}}
@@ -180,3 +256,4 @@ async function load(){
 }
 load();
 loadPermits();
+loadPermitCoordinates();
