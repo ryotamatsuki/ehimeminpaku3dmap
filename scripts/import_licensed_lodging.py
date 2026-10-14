@@ -136,7 +136,7 @@ def find_city_xlsx(session):
              if "旅館全施設" in title and (".xlsx" in href.lower() or ".xls" in href.lower())]
     matches=[u for u in matches if urlparse(u).hostname=="www.city.matsuyama.ehime.jp" and u.lower().endswith(".xlsx")]
     if not matches:
-        print("DEBUG CITY:",[(u,t) for u,t in parser.links if "旅館" in t or ".xlsx" in u.lower()][:12],flush=True)
+        print("DEBUG CITY:",{"status":resp.status_code,"url":resp.url,"encoding":resp.encoding,"type":resp.headers.get("Content-Type"),"length":len(resp.content),"links":len(parser.links),"sample":resp.text[:900],"matches":[(u,t) for u,t in parser.links if "旅館" in t or ".xlsx" in u.lower()][:12]},flush=True)
         raise RuntimeError("No clearly labeled Matsuyama complete registry XLSX found")
     return matches[0]
 
