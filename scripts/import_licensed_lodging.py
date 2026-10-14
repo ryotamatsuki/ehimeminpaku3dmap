@@ -85,6 +85,20 @@ def cols_of_xlsx(buf):
                 if cells:
                     yield sheet,[cells.get(i,"") for i in range(max(cells)+1)]
 
+def cols_of_xls(buf):
+    """Read legacy BIFF .xls published by Matsuyama (read-only)."""
+    import xlrd
+    book=xlrd.open_workbook(file_contents=buf)
+    for sheet in book.sheets():
+        for i in range(sheet.nrows):
+            values=[normalize(x) for x in sheet.row_values(i)]
+            if any(values):yield sheet.name,values
+
+def cols_of_excel(buf):
+    if buf.startswith(b"PK"):return cols_of_xlsx(buf)
+    if buf.startswith(bytes.fromhex("D0CF11E0A1B11AE1")):return cols_of_xls(buf)
+    raise ValueError("Unsupported spreadsheet format")
+
 def guess_columns(rows):
     """Conservatively find only a clear facility name and facility address pair."""
     for i,row in enumerate(rows[:45]):
@@ -103,7 +117,7 @@ def guess_columns(rows):
 
 def parse_xlsx(buf,source_id,source_url,download_url):
     allrows={}
-    for sheet,row in cols_of_xlsx(buf):allrows.setdefault(sheet,[]).append(row)
+    for sheet,row in cols_of_excel(buf):allrows.setdefault(sheet,[]).append(row)
     entries=[];diagnostics=[]
     for sheet,rows in allrows.items():
         spec=guess_columns(rows)
@@ -134,7 +148,7 @@ def find_city_xlsx(session):
     # Only download the data explicitly designated as the full city registry.
     matches=[urljoin(CITY_URL,href) for href,title in parser.links
              if "旅館全施設" in title and (".xlsx" in href.lower() or ".xls" in href.lower())]
-    matches=[u for u in matches if urlparse(u).hostname=="www.city.matsuyama.ehime.jp" and u.lower().endswith(".xlsx")]
+    matches=[u for u in matches if urlparse(u).hostname=="www.city.matsuyama.ehime.jp" and urlparse(u).path.lower().endswith((".xls",".xlsx"))]
     if not matches:
         print("DEBUG CITY:",{"status":resp.status_code,"url":resp.url,"encoding":resp.encoding,"type":resp.headers.get("Content-Type"),"length":len(resp.content),"links":len(parser.links),"sample":resp.text[:900],"matches":[(u,t) for u,t in parser.links if "旅館" in t or ".xlsx" in u.lower()][:12]},flush=True)
         raise RuntimeError("No clearly labeled Matsuyama complete registry XLSX found")
@@ -161,11 +175,11 @@ def run(session, only="all", inspect=False):
         try:
             url=discover(session)
             r=session.get(url,timeout=60);r.raise_for_status()
-            if not r.content.startswith(b"PK"):raise ValueError("Downloaded file is not XLSX")
+            if not (r.content.startswith(b"PK") or r.content.startswith(bytes.fromhex("D0CF11E0A1B11AE1"))):raise ValueError("Downloaded file is not Excel")
             facilities,details=parse_xlsx(r.content,source_id,page,url)
             if inspect:print(json.dumps({"source":source_id,"url":url,"details":details[:2],
                    "examples":facilities[:8],"count":len(facilities)},ensure_ascii=False)[:16000])
-            if not facilities:raise ValueError("No clear name/address columns parsed; human review needed")
+            if not facilities:raise ValueError("No clear name/address columns parsed; human review needed: "+json.dumps(details[:2],ensure_ascii=False)[:3000])
             results.extend(facilities)
             metadata.append({"id":source_id,"page":page,"download":url,"count":len(facilities),
                              "license":"CC BY 4.0","license_url":CC_BY})
