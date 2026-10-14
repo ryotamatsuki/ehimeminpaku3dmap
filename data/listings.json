@@ -1,0 +1,1034 @@
+{
+  "source": "愛媛県「住宅宿泊事業法に基づく届出住宅一覧」",
+  "source_url": "https://www.pref.ehime.jp/page/57100.html",
+  "pdf_url": "https://www.pref.ehime.jp/uploaded/attachment/190246.pdf",
+  "source_date": "2026-08-31",
+  "generated_at": "2026-10-14",
+  "scope": "matsuyama_only",
+  "method": "prior-manual-transcription-unverified",
+  "notice": "松山市住所146行を転記した暫定データ。愛媛県全域の一覧ではありません。",
+  "records": [
+    {
+      "id": 1,
+      "address": "松山市立花３－７－２８",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 2,
+      "address": "松山市府中５５８",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 3,
+      "address": "松山市北井門５－２５－２１",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 4,
+      "address": "松山市南江戸１－４－２０",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 5,
+      "address": "松山市柳井町２－７－８ 高原マンション16",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 6,
+      "address": "松山市三津３丁目１番１３号",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 7,
+      "address": "松山市三津２丁目１３－６",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 8,
+      "address": "松山市祝谷１－７－３２",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 9,
+      "address": "松山市三津１丁目３－１３",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 10,
+      "address": "松山市和気町２丁目８５４－３７",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 11,
+      "address": "松山市溝辺町８９－１",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 12,
+      "address": "松山市河野中須賀２７６番地３５",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 13,
+      "address": "松山市河野中須賀２７０－１５",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 14,
+      "address": "松山市泊町９０５",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 15,
+      "address": "松山市久谷町乙１１１４番地",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 16,
+      "address": "松山市三番町２丁目４－３０",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 17,
+      "address": "松山市門田町２８０",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 18,
+      "address": "松山市高砂町二丁目１－２７ ゴールデンハイツ高砂505",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 19,
+      "address": "松山市和泉北３丁目９番３号",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 20,
+      "address": "松山市土手内１９０－２ ＯＣＥＡＮＳ１３ 201",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 21,
+      "address": "松山市高浜町三丁目２２５６",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 22,
+      "address": "松山市菅沢町甲７１５番地１５",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 23,
+      "address": "松山市由良町１１１６番地２",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 24,
+      "address": "松山市下難波甲３２番７０",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 25,
+      "address": "松山市北条辻１５５６",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 26,
+      "address": "松山市由良町１０１３",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 27,
+      "address": "松山市由良町１２１７",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 28,
+      "address": "松山市小浜１０４５－１",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 29,
+      "address": "松山市土手内１９８－５",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 30,
+      "address": "松山市道後喜多町５－４６",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 31,
+      "address": "松山市由良町８００－１",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 32,
+      "address": "松山市北条９０３－１８",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 33,
+      "address": "松山市祝谷３－８－３４",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 34,
+      "address": "松山市内宮町２０３９－３",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 35,
+      "address": "松山市三津１－９－２１",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 36,
+      "address": "松山市由良町８１９",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 37,
+      "address": "松山市祝谷東町乙７９２－１",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 38,
+      "address": "松山市東野６丁目５－２８ ラ・パルフェ・ド・アンティエール403",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 39,
+      "address": "松山市道後町２－１０－３３ Ｔ’ｓマンション２ 101",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 40,
+      "address": "松山市道後町２－１０－３３ Ｔ’ｓマンション２ 206",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 41,
+      "address": "松山市道後町２－１０－３３ Ｔ’ｓマンション２ 303",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 42,
+      "address": "松山市道後町２－１０－３３ Ｔ’ｓマンション２ 305",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 43,
+      "address": "松山市道後町２－１０－３３ Ｔ’ｓマンション２ 502",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 44,
+      "address": "松山市道後町２－１０－３３ Ｔ’ｓマンション２ 506",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 45,
+      "address": "松山市道後町２－１０－３３ Ｔ’ｓマンション２ 510",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 46,
+      "address": "松山市土手内２１２－２",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 47,
+      "address": "松山市北条辻１５７２－１８",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 48,
+      "address": "松山市門田町２８４",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 49,
+      "address": "松山市北条辻１３２６番地２",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 50,
+      "address": "松山市２丁目３ー１７ ＪＡＣビル 3F",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 51,
+      "address": "松山市紅葉町３－４６ 紅葉ハイツ101",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 52,
+      "address": "松山市泊町１４７５",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 53,
+      "address": "松山市由良町９１０",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 54,
+      "address": "松山市泊町５４４－１",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 55,
+      "address": "松山市千舟町２－１－３ 第７７杉フラット103",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 56,
+      "address": "松山市三津２－１１－２２",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 57,
+      "address": "松山市三津１－８－２６",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 58,
+      "address": "松山市越智３丁目６－６",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 59,
+      "address": "松山市御幸１丁目５９９－２８",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 60,
+      "address": "松山市松前町３丁目３－１１ アクシス松前201",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 61,
+      "address": "松山市松前町３丁目３－１１ アクシス松前202",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 62,
+      "address": "松山市御宝町１３８－３ パレ・グラン御宝601",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 63,
+      "address": "松山市御宝町１３８－３ パレ・グラン御宝802",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 64,
+      "address": "松山市由良町７９３－１",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 65,
+      "address": "松山市睦月１３４１",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 66,
+      "address": "松山市三番町５丁目７－１３－２Ａ",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 67,
+      "address": "松山市三番町５丁目７－１３－５Ａ",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 68,
+      "address": "松山市泊町５９３番の１",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 69,
+      "address": "松山市本町２丁目２－３ サンピア本町102",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 70,
+      "address": "松山市西垣生町１７１９－３５",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 71,
+      "address": "松山市府中５３５－１",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 72,
+      "address": "松山市真砂町１１８ー６ ヴィラ浦本303",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 73,
+      "address": "松山市由良町１５６－８",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 74,
+      "address": "松山市御宝町１３８－３ パレ・グラン御宝401",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 75,
+      "address": "松山市土手内１９０－２ ＯＣＥＡＮＳ１３ 101",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 76,
+      "address": "松山市中村３－１－６ コートノブール202",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 77,
+      "address": "松山市千舟町２丁目３ー１７ ＪＡＣビル４Ｆ",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 78,
+      "address": "松山市湊町７－６－７ 第９３杉フラットＲＡＮＺＡ202",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 79,
+      "address": "松山市越智３丁目６－６",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 80,
+      "address": "松山市御宝町１３８－３ パレ・グラン御宝202",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 81,
+      "address": "松山市睦月１０９３",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 82,
+      "address": "松山市泊町１３５４－７",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 83,
+      "address": "松山市岩崎町２丁目１０－３６ 道後パークサイド201",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 84,
+      "address": "松山市河野中須賀２７０番地１３",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 85,
+      "address": "松山市森松町８６０番地１",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 86,
+      "address": "松山市千舟町２丁目１番３号 第７７杉フラット102",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 87,
+      "address": "松山市岩崎町２丁目１０−３６ 道後パークサイド301",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 88,
+      "address": "松山市清水町２丁目２２番地４ Ａ１",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 89,
+      "address": "松山市清水町２丁目２２番地４ Ｂ２",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 90,
+      "address": "松山市門田町７３番地",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 91,
+      "address": "松山市祇園町１１－２",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 92,
+      "address": "松山市石手５－７－１５ ＳＡＫＵＲＡ ＨＯＵＳＥ203",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 93,
+      "address": "松山市北条辻４００－３",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 94,
+      "address": "松山市道後湯之町４－５４ 射場ビル302",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 95,
+      "address": "松山市溝辺町甲２３３－５",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 96,
+      "address": "松山市道後町２－１０－３３ Ｔ’ｓマンション２ 202",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 97,
+      "address": "松山市道後町２－１０－３３ Ｔ’ｓマンション２ 306",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 98,
+      "address": "松山市道後町２－１０－３３ Ｔ’ｓマンション２ 505",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 99,
+      "address": "松山市道後町２－１０－３３ Ｔ’ｓマンション２ 205",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 100,
+      "address": "松山市御宝町１３８－１ パレ・グラン御宝502",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 101,
+      "address": "松山市泊町９０７番地",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 102,
+      "address": "松山市紅葉町３－４６ 紅葉ハイツ202",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 103,
+      "address": "松山市正円寺１－７－４３",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 104,
+      "address": "松山市道後湯之町４－５４ 射場ビル201",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 105,
+      "address": "松山市道後湯之町４－５４ 射場ビル303",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 106,
+      "address": "松山市三番町５丁目４－７ 第五正田ビル302",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 107,
+      "address": "松山市道後町２－１０－３３ Ｔ’ｓマンション２ 102",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 108,
+      "address": "松山市柳原５１０－５",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 109,
+      "address": "松山市北立花町６－１８ サザンコートＶ501",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 110,
+      "address": "松山市北立花町６－１８ サザンコートＶ502",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 111,
+      "address": "松山市御幸二丁目１５６番地２",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 112,
+      "address": "松山市真砂町１１８－６ ヴィラ浦本301",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 113,
+      "address": "松山市小川甲１番地７",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 114,
+      "address": "松山市東野５丁目９１１ー９",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 115,
+      "address": "松山市山西町２２２－１",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 116,
+      "address": "松山市和泉南４丁目６番２５号",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 117,
+      "address": "松山市和泉南５丁目２番４号",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 118,
+      "address": "松山市北立花６－１８サザンコートＶ402",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 119,
+      "address": "松山市三津２丁目２－２２",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 120,
+      "address": "松山市畑寺四丁目１１－２３",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 121,
+      "address": "松山市中村５丁目１７－１８リッツハウス立花106",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 122,
+      "address": "松山市本町２－２－３サンピア本町302",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 123,
+      "address": "松山市道後町２－１０－３３Ｔ’ｓマンション２210",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 124,
+      "address": "松山市東一万２第三森ビル402",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 125,
+      "address": "松山市東一万２第三森ビル405",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 126,
+      "address": "松山市小川１７－６",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 127,
+      "address": "松山市北立花町６－１８サザンコートＶ202",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 128,
+      "address": "松山市柳原５６３番地",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 129,
+      "address": "松山市道後町２－１０－３３Ｔ’ｓマンション２208",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 130,
+      "address": "松山市石手５‐７‐１５ＳＡＫＵＲＡ ＨＯＵＳＥ303",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 131,
+      "address": "松山市岩崎町２丁目１０－３６道後パークサイド202",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 132,
+      "address": "松山市岩崎町２丁目１０－３６道後パークサイド302",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 133,
+      "address": "松山市和泉北２−１２−３１",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 134,
+      "address": "松山市住吉２丁目５‐２２",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 135,
+      "address": "松山市由良町１５３－１",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 136,
+      "address": "松山市道後多幸町４番８号本多マンション102",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 137,
+      "address": "松山市道後多幸町４番８号本多マンション202",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 138,
+      "address": "松山市道後多幸町４番８号本多マンション103",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 139,
+      "address": "松山市味酒町３丁目２－３ロイヤルガーデン1001",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 140,
+      "address": "松山市御宝町１３８－３パレ・グラン御宝702",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 141,
+      "address": "松山市空港通３丁目６－３４ウェストビル松山302",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 142,
+      "address": "松山市空港通３丁目６－３４ウェストビル松山402",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 143,
+      "address": "松山市小川甲３４－３４",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 144,
+      "address": "松山市土手内１９０ー２ＯＣＥＡＮＳ１３203",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 145,
+      "address": "松山市泊町７３０番地",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    },
+    {
+      "id": 146,
+      "address": "松山市泊町５８４番地",
+      "city": "松山市",
+      "coord": null,
+      "precision": "unresolved"
+    }
+  ]
+}

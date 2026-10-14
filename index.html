@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="ja"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#071319"><meta name="description" content="愛媛県の住宅宿泊事業届出住宅の分布を3Dメッシュで可視化。市町・集計幅・施設数を比較できるオープンデータプロジェクト。">
+<title>EHIME MINPAKU ATLAS | 愛媛の民泊3Dマップ</title>
+<link rel="stylesheet" href="https://unpkg.com/maplibre-gl@5.6.0/dist/maplibre-gl.css">
+<link rel="stylesheet" href="./src/style.css">
+<script defer src="https://unpkg.com/maplibre-gl@5.6.0/dist/maplibre-gl.js"></script>
+<script defer type="module" src="./src/main.mjs"></script>
+</head><body>
+<div class="shell">
+  <aside class="panel" aria-label="分析コントロール">
+    <header class="brand"><div class="kicker">EHIME / SPATIAL DATA EXPLORER</div>
+      <div class="brand-title">MINPAKU<span> ATLAS</span></div>
+      <p>愛媛の民泊を、立体で読む。</p><div class="source-pill" id="source-pill">DATA LOADING</div>
+    </header>
+    <div class="stats" aria-live="polite">
+      <div class="stat"><div class="value" id="total-count">—</div><div class="stat-label">収録届出住宅（掲載行）</div></div>
+      <div class="stat"><div class="value" id="visible-count">—</div><div class="stat-label">メッシュ集計に使用</div></div>
+      <div class="stat"><div class="value" id="city-count">—</div><div class="stat-label">掲載のある市町数</div></div>
+      <div class="stat"><div class="value" id="cell-count">—</div><div class="stat-label">表示中の集計メッシュ</div></div>
+    </div>
+    <section class="control"><div class="section-header"><span>01</span><h2>表示範囲</h2></div>
+      <label for="city">自治体を選ぶ</label><select id="city"><option value="all">愛媛県全域</option></select>
+      <div class="shortcuts"><button data-place="all">県全域</button><button data-place="松山市">松山</button><button data-place="今治市">今治</button><button data-place="宇和島市">宇和島</button></div>
+    </section>
+    <section class="control"><div class="section-header"><span>02</span><h2>3Dメッシュ</h2></div>
+      <label>集計するメッシュの幅 <small>概算の正方形グリッド</small></label>
+      <div class="segments" id="sizes"><button data-size="250">250m</button><button data-size="500">500m</button><button class="selected" data-size="1000">1km</button><button data-size="2000">2km</button></div>
+      <label>柱の高さに使う数値</label><div class="segments" id="metrics"><button data-metric="listings" class="selected">届出住宅数</button><button data-metric="sites">所在地数〈推定〉</button></div>
+      <label class="check"><input type="checkbox" id="include-approx">町域代表点などの低精度座標を細かいメッシュにも含める</label>
+    </section>
+    <section class="control"><div class="section-header"><span>03</span><h2>住所の座標変換</h2></div>
+      <button id="geocode" class="primary">座標未取得の住所を検索</button>
+      <div class="progress"><span id="progress-bar"></span></div>
+      <p id="geocode-status" class="micro" role="status">データ読込中</p>
+      <p class="micro">国土地理院の住所検索に接続します。地番が解決されない場合、町域の代表点となることがあります。</p>
+    </section>
+    <section class="control"><div class="section-header"><span>04</span><h2>自治体別の掲載数</h2></div><div id="ranking" class="ranking"></div></section>
+    <footer class="panel-footer">
+      <strong>データの読み方</strong>
+      <p id="data-warning">位置精度とデータの網羅性を確認中です。</p>
+      <p>住宅宿泊事業法の届出住宅のみ。旅館業法の簡易宿所は対象外。非公表所在地、営業実態、稼働率等は把握できません。</p>
+      <a href="https://www.pref.ehime.jp/page/57100.html" target="_blank" rel="noopener">愛媛県の公式データ ↗</a>
+      <a href="https://github.com/ryotamatsuki/ehimeminpaku3dmap" target="_blank" rel="noopener">コード・データ処理の説明 ↗</a>
+    </footer>
+  </aside>
+  <main class="stage">
+    <div id="map" role="region" aria-label="愛媛県の民泊の3D集中度マップ"></div>
+    <div class="map-vignette" aria-hidden="true"></div>
+    <div class="map-top"><div class="eyebrow">RESIDENTIAL ACCOMMODATION / EHIME</div>
+      <h1 id="map-label">愛媛県 <span>民泊集中度</span></h1><div class="date" id="map-date">PUBLIC DATA / LOADING</div></div>
+    <div class="coverage" id="coverage">地図を準備しています</div>
+    <div class="legend"><div>3D柱 = メッシュ内の掲載数</div><div class="gradient"></div><div class="range"><span>少ない</span><span>多い</span></div><p>相対的な色分け。柱の高さは件数であり、建物の高さではありません。</p></div>
+    <div class="details" id="details" hidden><button id="close-detail" aria-label="詳細を閉じる">×</button><div class="details-kicker">SELECTED MESH</div><h2 id="detail-count">—</h2><p id="detail-meta"></p></div>
+    <div class="map-failed" id="map-failed" hidden>地図を読み込めませんでした。インターネット接続をご確認ください。</div>
+  </main>
+</div>
+</body></html>
