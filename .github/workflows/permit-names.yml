@@ -21,7 +21,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: {python-version: '3.12'}
-      - run: pip install requests
+      - run: pip install requests xlrd==2.0.2
       - name: Import officially CC BY-licensed lists without booking-site scraping
         run: python scripts/import_licensed_lodging.py --inspect
       - name: Inspect exported names and license
