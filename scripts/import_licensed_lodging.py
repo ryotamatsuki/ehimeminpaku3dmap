@@ -10,7 +10,7 @@ from datetime import datetime, timezone
 from html.parser import HTMLParser
 from io import BytesIO
 from pathlib import Path
-from urllib.parse import urljoin, urlparse
+from urllib.parse import urljoin, urlparse, unquote
 from zipfile import ZipFile
 import hashlib
 import json
@@ -129,7 +129,7 @@ def parse_xlsx(buf,source_id,source_url,download_url):
 
 def find_city_xlsx(session):
     resp=session.get(CITY_URL,timeout=30);resp.raise_for_status()
-    parser=Links();parser.feed(resp.text)
+    resp.encoding=resp.apparent_encoding or "utf-8"\n    parser=Links();parser.feed(resp.text)
     # Only download the data explicitly designated as the full city registry.
     matches=[urljoin(CITY_URL,href) for href,title in parser.links
              if "旅館全施設" in title and (".xlsx" in href.lower() or ".xls" in href.lower())]
@@ -144,7 +144,7 @@ def find_pref_xlsx(session):
     parser=Links();parser.feed(resp.text)
     # This catalog may use download actions with no direct XLSX links.
     matches=[urljoin(PREF_URL,href) for href,title in parser.links
-             if "令和７年12月末時点" in title and ".xlsx" in href.lower()]
+             if "令和7年12月末時点" in normalize(unquote(href)) and "旅館業施設一覧" in unquote(href) and ".xlsx" in href.lower()]
     matches=[u for u in matches if urlparse(u).hostname=="www.pref.ehime.jp" and u.lower().endswith(".xlsx")]
     if not matches:
         print("DEBUG PREF:",[(u,t) for u,t in parser.links if ".xlsx" in u.lower() or "ダウンロード" in t][:15],flush=True)
