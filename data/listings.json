@@ -3,13 +3,15 @@
   "source_url": "https://www.pref.ehime.jp/page/57100.html",
   "pdf_url": "https://www.pref.ehime.jp/uploaded/attachment/190246.pdf",
   "source_date": "2026-08-31",
-  "generated_at": "2026-10-14T11:25:39Z",
+  "generated_at": "2026-10-14T11:31:52Z",
   "scope": "prefecture",
   "method": "PDF text extraction (not individually audited) / GSI geocoder",
   "notice": "自動抽出した住所。原PDFと全件の照合・座標精度の保証はしていません。",
   "quality": {
     "extracted": 296,
     "geocoded": 296,
+    "street_precision": 65,
+    "district_precision": 231,
     "unique_municipalities": 19,
     "anomalies_for_review": 0
   },
@@ -22,7 +24,7 @@
         132.771835,
         33.826084
       ],
-      "precision": "district",
+      "precision": "street",
       "geocode_title": "愛媛県松山市立花三丁目７番２８号"
     },
     {
@@ -77,7 +79,7 @@
         132.768234,
         33.804668
       ],
-      "precision": "district",
+      "precision": "street",
       "geocode_title": "愛媛県松山市北井門五丁目２５番２１号"
     },
     {
@@ -110,7 +112,7 @@
         132.750046,
         33.836212
       ],
-      "precision": "district",
+      "precision": "street",
       "geocode_title": "愛媛県松山市南江戸一丁目４番２０号"
     },
     {
@@ -187,7 +189,7 @@
         132.990875,
         34.060787
       ],
-      "precision": "district",
+      "precision": "street",
       "geocode_title": "愛媛県今治市中日吉町二丁目７番４８号"
     },
     {
@@ -198,7 +200,7 @@
         132.715576,
         33.86142
       ],
-      "precision": "district",
+      "precision": "street",
       "geocode_title": "愛媛県松山市三津三丁目１番１３号"
     },
     {
@@ -209,7 +211,7 @@
         132.71283,
         33.864098
       ],
-      "precision": "district",
+      "precision": "street",
       "geocode_title": "愛媛県松山市三津二丁目１３番６号"
     },
     {
@@ -319,7 +321,7 @@
         132.71199,
         33.865627
       ],
-      "precision": "district",
+      "precision": "street",
       "geocode_title": "愛媛県松山市三津一丁目３番１３号"
     },
     {
@@ -462,7 +464,7 @@
         132.967697,
         34.101646
       ],
-      "precision": "district",
+      "precision": "street",
       "geocode_title": "愛媛県今治市中堀一丁目１番６号"
     },
     {
@@ -561,7 +563,7 @@
         132.756989,
         33.819592
       ],
-      "precision": "district",
+      "precision": "street",
       "geocode_title": "愛媛県松山市和泉北三丁目９番３号"
     },
     {
@@ -638,7 +640,7 @@
         132.700989,
         33.886147
       ],
-      "precision": "district",
+      "precision": "street",
       "geocode_title": "愛媛県松山市高浜町三丁目２２５６番地"
     },
     {
@@ -946,7 +948,7 @@
         132.776886,
         33.855843
       ],
-      "precision": "district",
+      "precision": "street",
       "geocode_title": "愛媛県松山市祝谷三丁目８番３４号"
     },
     {
@@ -968,7 +970,7 @@
         132.712723,
         33.866161
       ],
-      "precision": "district",
+      "precision": "street",
       "geocode_title": "愛媛県松山市三津一丁目９番２１号"
     },
     {
@@ -1012,7 +1014,7 @@
         132.799255,
         33.836411
       ],
-      "precision": "district",
+      "precision": "street",
       "geocode_title": "愛媛県松山市東野六丁目５番２８号"
     },
     {
@@ -1100,7 +1102,7 @@
         132.782867,
         33.848949
       ],
-      "precision": "district",
+      "precision": "street",
       "geocode_title": "愛媛県松山市道後町二丁目１０番３３号"
     },
     {
@@ -1122,7 +1124,7 @@
         132.782867,
         33.848949
       ],
-      "precision": "district",
+      "precision": "street",
       "geocode_title": "愛媛県松山市道後町二丁目１０番３３号"
     },
     {
@@ -1133,7 +1135,7 @@
         132.782867,
         33.848949
       ],
-      "precision": "district",
+      "precision": "street",
       "geocode_title": "愛媛県松山市道後町二丁目１０番３３号"
     },
     {
@@ -1144,7 +1146,7 @@
         132.782867,
         33.848949
       ],
-      "precision": "district",
+      "precision": "street",
       "geocode_title": "愛媛県松山市道後町二丁目１０番３３号"
     },
     {
@@ -1155,7 +1157,7 @@
         132.782867,
         33.848949
       ],
-      "precision": "district",
+      "precision": "street",
       "geocode_title": "愛媛県松山市道後町二丁目１０番３３号"
     },
     {
@@ -1166,7 +1168,7 @@
         132.782867,
         33.848949
       ],
-      "precision": "district",
+      "precision": "street",
       "geocode_title": "愛媛県松山市道後町二丁目１０番３３号"
     },
     {
@@ -1177,7 +1179,7 @@
         132.782867,
         33.848949
       ],
-      "precision": "district",
+      "precision": "street",
       "geocode_title": "愛媛県松山市道後町二丁目１０番３３号"
     },
     {
@@ -1474,7 +1476,7 @@
         132.714111,
         33.86356
       ],
-      "precision": "district",
+      "precision": "street",
       "geocode_title": "愛媛県松山市三津二丁目１１番２２号"
     },
     {
@@ -1485,7 +1487,7 @@
         132.712006,
         33.86655
       ],
-      "precision": "district",
+      "precision": "street",
       "geocode_title": "愛媛県松山市三津一丁目８番２６号"
     },
     {
@@ -1496,7 +1498,7 @@
         132.78273,
         33.809196
       ],
-      "precision": "district",
+      "precision": "street",
       "geocode_title": "愛媛県松山市越智三丁目６番６号"
     },
     {
@@ -1573,7 +1575,7 @@
         132.992645,
         34.048901
       ],
-      "precision": "district",
+      "precision": "street",
       "geocode_title": "愛媛県今治市河南町三丁目３番１５号"
     },
     {
@@ -1815,7 +1817,7 @@
         132.778976,
         33.829819
       ],
-      "precision": "district",
+      "precision": "street",
       "geocode_title": "愛媛県松山市中村三丁目１番６号"
     },
     {
@@ -1881,7 +1883,7 @@
         132.78273,
         33.809196
       ],
-      "precision": "district",
+      "precision": "street",
       "geocode_title": "愛媛県松山市越智三丁目６番６号"
     },
     {
@@ -1991,7 +1993,7 @@
         132.785233,
         33.847397
       ],
-      "precision": "district",
+      "precision": "street",
       "geocode_title": "愛媛県松山市岩崎町二丁目１０番３６号"
     },
     {
@@ -2035,7 +2037,7 @@
         132.785233,
         33.847397
       ],
-      "precision": "district",
+      "precision": "street",
       "geocode_title": "愛媛県松山市岩崎町二丁目１０番３６号"
     },
     {
@@ -2134,7 +2136,7 @@
         132.791382,
         33.847656
       ],
-      "precision": "district",
+      "precision": "street",
       "geocode_title": "愛媛県松山市石手五丁目７番１５号"
     },
     {
@@ -2145,7 +2147,7 @@
         132.574844,
         33.215527
       ],
-      "precision": "district",
+      "precision": "street",
       "geocode_title": "愛媛県宇和島市宇和津町一丁目２番１７号"
     },
     {
@@ -2178,7 +2180,7 @@
         133.308365,
         33.933918
       ],
-      "precision": "district",
+      "precision": "street",
       "geocode_title": "愛媛県新居浜市北内町一丁目３番１９号"
     },
     {
@@ -2299,7 +2301,7 @@
         132.782867,
         33.848949
       ],
-      "precision": "district",
+      "precision": "street",
       "geocode_title": "愛媛県松山市道後町二丁目１０番３３号"
     },
     {
@@ -2310,7 +2312,7 @@
         132.782867,
         33.848949
       ],
-      "precision": "district",
+      "precision": "street",
       "geocode_title": "愛媛県松山市道後町二丁目１０番３３号"
     },
     {
@@ -2321,7 +2323,7 @@
         132.782867,
         33.848949
       ],
-      "precision": "district",
+      "precision": "street",
       "geocode_title": "愛媛県松山市道後町二丁目１０番３３号"
     },
     {
@@ -2354,7 +2356,7 @@
         132.782867,
         33.848949
       ],
-      "precision": "district",
+      "precision": "street",
       "geocode_title": "愛媛県松山市道後町二丁目１０番３３号"
     },
     {
@@ -2442,7 +2444,7 @@
         132.79483,
         33.840855
       ],
-      "precision": "district",
+      "precision": "street",
       "geocode_title": "愛媛県松山市正円寺一丁目７番４３号"
     },
     {
@@ -2486,7 +2488,7 @@
         132.782867,
         33.848949
       ],
-      "precision": "district",
+      "precision": "street",
       "geocode_title": "愛媛県松山市道後町二丁目１０番３３号"
     },
     {
@@ -2651,7 +2653,7 @@
         132.759338,
         33.814686
       ],
-      "precision": "district",
+      "precision": "street",
       "geocode_title": "愛媛県松山市和泉南四丁目６番２５号"
     },
     {
@@ -2662,7 +2664,7 @@
         132.76033,
         33.812725
       ],
-      "precision": "district",
+      "precision": "street",
       "geocode_title": "愛媛県松山市和泉南五丁目２番４号"
     },
     {
@@ -2750,7 +2752,7 @@
         132.713669,
         33.863136
       ],
-      "precision": "district",
+      "precision": "street",
       "geocode_title": "愛媛県松山市三津二丁目２番２２号"
     },
     {
@@ -2772,7 +2774,7 @@
         132.774918,
         33.826931
       ],
-      "precision": "district",
+      "precision": "street",
       "geocode_title": "愛媛県松山市中村五丁目１７番１８号"
     },
     {
@@ -2805,7 +2807,7 @@
         132.782867,
         33.848949
       ],
-      "precision": "district",
+      "precision": "street",
       "geocode_title": "愛媛県松山市道後町二丁目１０番３３号"
     },
     {
@@ -2926,7 +2928,7 @@
         133.03627,
         34.014259
       ],
-      "precision": "district",
+      "precision": "street",
       "geocode_title": "愛媛県今治市郷桜井二丁目２番１１号"
     },
     {
@@ -2959,7 +2961,7 @@
         132.782867,
         33.848949
       ],
-      "precision": "district",
+      "precision": "street",
       "geocode_title": "愛媛県松山市道後町二丁目１０番３３号"
     },
     {
@@ -2970,7 +2972,7 @@
         132.791382,
         33.847656
       ],
-      "precision": "district",
+      "precision": "street",
       "geocode_title": "愛媛県松山市石手五丁目７番１５号"
     },
     {
@@ -2981,7 +2983,7 @@
         132.785233,
         33.847397
       ],
-      "precision": "district",
+      "precision": "street",
       "geocode_title": "愛媛県松山市岩崎町二丁目１０番３６号"
     },
     {
@@ -2992,7 +2994,7 @@
         132.785233,
         33.847397
       ],
-      "precision": "district",
+      "precision": "street",
       "geocode_title": "愛媛県松山市岩崎町二丁目１０番３６号"
     },
     {
@@ -3025,7 +3027,7 @@
         132.755737,
         33.825413
       ],
-      "precision": "district",
+      "precision": "street",
       "geocode_title": "愛媛県松山市和泉北二丁目１２番３１号"
     },
     {
@@ -3036,7 +3038,7 @@
         132.714615,
         33.864025
       ],
-      "precision": "district",
+      "precision": "street",
       "geocode_title": "愛媛県松山市住吉二丁目５番２２号"
     },
     {
@@ -3157,7 +3159,7 @@
         132.739273,
         33.828369
       ],
-      "precision": "district",
+      "precision": "street",
       "geocode_title": "愛媛県松山市空港通三丁目６番３４号"
     },
     {
@@ -3168,7 +3170,7 @@
         132.739273,
         33.828369
       ],
-      "precision": "district",
+      "precision": "street",
       "geocode_title": "愛媛県松山市空港通三丁目６番３４号"
     },
     {
