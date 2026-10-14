@@ -1,0 +1,45 @@
+name: Geocode CC BY lodging locations
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '35 4 * * 2'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/geocode_permits.py'
+      - '.github/workflows/geocode-permits.yml'
+permissions:
+  contents: write
+concurrency:
+  group: permit-geocoding
+  cancel-in-progress: false
+jobs:
+  geocode:
+    runs-on: ubuntu-latest
+    timeout-minutes: 28
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: pip install -r requirements.txt
+      - name: Update precision-audited coordinates (incremental)
+        run: python scripts/geocode_permits.py --interval 0.6
+      - name: Validate coordinate table
+        run: |
+          python - <<'PY'
+          import json
+          data=json.load(open('data/permit_coordinates.json'))
+          assert data['summary']['attempted']>0
+          assert all(x['precision'] in ('street','district','unresolved') for x in data['coordinates'].values())
+          assert all(not x['coord'] or (132<=x['coord'][0]<=134.2 and 32.8<=x['coord'][1]<=34.5) for x in data['coordinates'].values())
+          print(data['summary'])
+          PY
+      - name: Commit coordinates
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/permit_coordinates.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'data: refresh geocoded permitted lodging sites [skip ci]'
+            git push
+          fi
