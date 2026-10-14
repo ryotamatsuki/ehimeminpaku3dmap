@@ -129,7 +129,8 @@ def parse_xlsx(buf,source_id,source_url,download_url):
 
 def find_city_xlsx(session):
     resp=session.get(CITY_URL,timeout=30);resp.raise_for_status()
-    resp.encoding=resp.apparent_encoding or "utf-8"\n    parser=Links();parser.feed(resp.text)
+    resp.encoding=resp.apparent_encoding or "utf-8"
+    parser=Links();parser.feed(resp.text)
     # Only download the data explicitly designated as the full city registry.
     matches=[urljoin(CITY_URL,href) for href,title in parser.links
              if "旅館全施設" in title and (".xlsx" in href.lower() or ".xls" in href.lower())]
