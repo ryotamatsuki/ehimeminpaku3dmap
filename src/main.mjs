@@ -73,7 +73,11 @@ function makeControls(){
 }
 function cacheRead(){try{return JSON.parse(localStorage.getItem('ehime-minpaku-geocode-v2')||'{}')}catch{return {}}}
 function cacheWrite(v){try{localStorage.setItem('ehime-minpaku-geocode-v2',JSON.stringify(v))}catch{}}
-function normalizeCompare(s){return norm(s).replace(/[\s　]+/g,'').replace(/^愛媛県/,'').replace(/番地?/g,'-').replace(/号/g,'').replace(/丁目/g,'-')}
+function normalizeCompare(s){
+ const kanji={'一':1,'二':2,'三':3,'四':4,'五':5,'六':6,'七':7,'八':8,'九':9,'十':10};
+ const n=k=>kanji[k]??(k.startsWith('十')?10+(kanji[k.slice(1)]||0):k.endsWith('十')?(kanji[k.slice(0,-1)]||1)*10:k);
+ return norm(s).replace(/^愛媛県/,'').replace(/([一二三四五六七八九十]+)丁目/g,(_,k)=>`${n(k)}-`).replace(/(\d+)丁目/g,'$1-').replace(/番地?/g,'-').replace(/号/g,'').replace(/[\s　]+/g,'').replace(/[-−‐‑‒–—―ーｰ]+/g,'-');
+}
 function parseGsi(features,address){
  const target=municipality(address),a=normalizeCompare(baseAddress(address));
  const opts=(Array.isArray(features)?features:[]).filter(f=>{

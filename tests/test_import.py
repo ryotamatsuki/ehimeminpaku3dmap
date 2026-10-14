@@ -21,6 +21,13 @@ class TestImporter(unittest.TestCase):
     def test_normalization(self):
         self.assertEqual(r.municipality('伊予郡砥部町原町 1-2'),'砥部町')
         self.assertEqual(r.basename('松山市道後町２－１０－３３ マンション202'),'松山市道後町2-10-33')
+    def test_kanji_chome_and_latest_source(self):
+        self.assertEqual(r.recognized_precision('松山市立花3-7-28','愛媛県松山市立花三丁目７番２８号'),'street')
+        self.assertEqual(r.recognized_precision('今治市南大門町3-2-5','愛媛県今治市南大門町三丁目２番'),'district')
+        parser=r.SourceLinks()
+        parser.feed('<a href="/uploaded/attachment/190246.pdf">住宅宿泊事業に基づく届出住宅一覧（令和8年8月31日時点）</a>')
+        self.assertEqual(len(parser.links),1)
+
     def test_gsi_locality_boundary(self):
         f=[{'geometry':{'coordinates':[132.78,33.85]},'properties':{'title':'愛媛県今治市道後町2-10-33'}}]
         self.assertIsNone(r.plausible_gsi(f,'松山市道後町2-10-33'))
