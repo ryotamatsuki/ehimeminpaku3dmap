@@ -4,6 +4,12 @@ on:
     branches: [main]
     paths-ignore: ['data/geocode-cache.json','data/extraction-anomalies.txt']
   pull_request:
+  workflow_run:
+    workflows:
+      - Geocode CC BY lodging locations
+      - Import CC BY licensed lodging names
+      - Import Ehime minpaku PDF
+    types: [completed]
   workflow_dispatch:
 permissions:
   contents: read
