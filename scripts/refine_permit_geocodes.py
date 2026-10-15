@@ -69,9 +69,10 @@ def gsi_exact(address,title):
     a=a[a.index(city)+len(city):]
     t=t[t.index(city)+len(city):]
     # Match identical town name (before first numeral) and full street numeric tuple.
-    ab=re.match(r"(.+?)(\d+(?:丁目)?(?:[-番地号]?\d+)*)$",a)
-    if not ab:return False
-    town=ab.group(1)
+    first=re.search(r"\d",a)
+    if not first:return False
+    town=a[:first.start()]
+    if not town:return False
     if not t.startswith(town):return False
     tail=a[len(town):]
     cand=t[len(town):]
