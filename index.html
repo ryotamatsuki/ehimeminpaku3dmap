@@ -37,20 +37,11 @@
       <p class="micro">国土地理院の住所検索に接続します。地番が解決されない場合、町域の代表点となることがあります。</p>
     </section>
     <section class="control"><div class="section-header"><span>04</span><h2>自治体別の掲載数</h2></div><div id="ranking" class="ranking"></div></section>
-    <section class="control" id="permit-section">
- <div class="section-header"><span>05</span><h2>公開宿泊施設名（旅館業法）</h2></div>
- <p id="permit-summary" class="micro">公開データ取得中…</p><p class="micro" id="permit-coords">施設位置の照合状況を確認中…</p>
- <label for="permit-search">施設名・住所を検索</label>
- <input type="search" id="permit-search" placeholder="施設名・住所で絞り込み" autocomplete="off">
- <div id="permit-list" class="permit-list"></div>
- <p class="micro" id="permit-note">旅館業許可施設は、住宅宿泊事業法の届出民泊とは別制度です。</p>
-</section>
 <footer class="panel-footer">
       <strong>データの読み方</strong>
       <p id="data-warning">位置精度とデータの網羅性を確認中です。</p>
-      <p>住宅宿泊事業法の届出住宅のみ。旅館業法の簡易宿所は対象外。非公表所在地、営業実態、稼働率等は把握できません。</p>
+      <p>住宅宿泊事業法の届出住宅のみを表示します。ホテル・旅館・簡易宿所等の許可施設は表示しません。非公表所在地、営業名称、稼働率等は把握できません。</p>
       <a href="https://www.pref.ehime.jp/page/57100.html" target="_blank" rel="noopener">愛媛県の公式データ ↗</a>
-      <a href="https://github.com/geolonia/japanese-addresses-v2" target="_blank" rel="noopener">住所座標データ：Geolonia Japanese Addresses v2（CC BY 4.0、デジタル庁ABR由来）を加工 ↗</a>
       <a href="https://github.com/ryotamatsuki/ehimeminpaku3dmap" target="_blank" rel="noopener">コード・データ処理の説明 ↗</a>
     </footer>
   </aside>
@@ -60,8 +51,8 @@
     <div class="map-top"><div class="eyebrow">RESIDENTIAL ACCOMMODATION / EHIME</div>
       <h1 id="map-label">愛媛県 <span>民泊集中度</span></h1><div class="date" id="map-date">PUBLIC DATA / LOADING</div></div>
     <div class="coverage" id="coverage">地図を準備しています</div>
-    <div class="legend"><div>地図の任意の場所・3D柱・オレンジの点をタップして宿の詳細を確認</div><div style="margin-top:7px">3D柱 = メッシュ内の届出住宅数</div><div>● = 名称が公開された旅館業施設（地番照合済み）</div><div class="gradient"></div><div class="range"><span>少ない</span><span>多い</span></div><p>相対的な色分け。柱の高さは件数であり、建物の高さではありません。</p></div>
-    <div class="details" id="details" hidden role="region" aria-label="タップしたメッシュの届出民泊と宿泊施設情報"><button id="close-detail" aria-label="詳細を閉じる">×</button><div class="details-kicker">SELECTED AREA / 施設情報</div><h2 id="detail-count">—</h2><p id="detail-meta"></p><div id="detail-names" class="detail-names"></div></div>
+    <div class="legend"><div>3D柱や任意の地点をタップして、届出住宅の所在地を確認</div><div style="margin-top:7px">3D柱 = メッシュ内の届出住宅数</div><div class="gradient"></div><div class="range"><span>少ない</span><span>多い</span></div><p>相対的な色分け。柱の高さは件数であり、建物の高さではありません。</p></div>
+    <div class="details" id="details" hidden role="region" aria-label="タップしたメッシュの届出住宅所在地"><button id="close-detail" aria-label="詳細を閉じる">×</button><div class="details-kicker">SELECTED AREA / 届出住宅の所在地</div><h2 id="detail-count">—</h2><p id="detail-meta"></p><div id="detail-names" class="detail-names"></div></div>
     <div class="map-failed" id="map-failed" hidden>地図を読み込めませんでした。インターネット接続をご確認ください。</div>
   </main>
 </div>
