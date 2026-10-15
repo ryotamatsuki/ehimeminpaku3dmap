@@ -1,13 +1,6 @@
 name: Import CC BY licensed lodging names
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '18 5 17 * *'
-  push:
-    branches: [main]
-    paths:
-      - 'scripts/import_licensed_lodging.py'
-      - '.github/workflows/permit-names.yml'
 permissions:
   contents: write
 concurrency:

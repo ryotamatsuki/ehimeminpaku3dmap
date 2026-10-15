@@ -2,12 +2,10 @@ name: Verify and deploy 3D atlas
 on:
   push:
     branches: [main]
-    paths-ignore: ['data/geocode-cache.json','data/extraction-anomalies.txt']
+    paths-ignore: ['data/geocode-cache.json','data/extraction-anomalies.txt','data/licensed_lodging.json','data/permit_coordinates.json']
   pull_request:
   workflow_run:
     workflows:
-      - Geocode CC BY lodging locations
-      - Import CC BY licensed lodging names
       - Import Ehime minpaku PDF
     types: [completed]
   workflow_dispatch:
@@ -46,6 +44,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Package residential-minpaku data only
+        run: |
+          mkdir -p _site/src _site/data
+          cp index.html .nojekyll _site/
+          cp src/style.css src/main.mjs src/geo.mjs src/mesh-details.mjs _site/src/
+          cp data/listings.json _site/data/
+          test ! -e _site/data/licensed_lodging.json
+          test ! -e _site/data/permit_coordinates.json
+          test ! -e _site/src/names.mjs
+          if grep -E 'permit-markers|permit-points|licensed_lodging.json|permit_coordinates.json|loadPermits|loadPermitCoordinates' _site/index.html _site/src/main.mjs; then
+            echo 'ERROR: non-minpaku facility data is referenced in public site' >&2
+            exit 1
+          fi
+          echo 'Only residential-accommodation declaration data is included.' >> "$GITHUB_STEP_SUMMARY"
       - name: Check whether Pages is enabled
         id: pages
         env:
@@ -65,7 +77,7 @@ jobs:
         uses: actions/configure-pages@v5
       - if: steps.pages.outputs.enabled == 'true'
         uses: actions/upload-pages-artifact@v3
-        with: {path: '.'}
+        with: {path: '_site'}
       - name: Deploy to GitHub Pages
         if: steps.pages.outputs.enabled == 'true'
         id: deployment
