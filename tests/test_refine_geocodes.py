@@ -26,7 +26,7 @@ class TestABR(unittest.TestCase):
   m.fetch_towns=lambda city:[({'csv_ranges':{'地番':{'start':11,'length':22}}},'高岡町')]
   m.get_range=lambda c,kind,span:[
    ['地番','高岡町'],['prc_num1','prc_num2','prc_num3','lng','lat'],
-   ['877','2','', '132.7105','33.8304'],['877','','','132.7100','33.8300']]
+   ['877','2','', '132.7105','33.8304'],['877','','','132.7100','33.8300']
   ] if kind=='地番' else []
   yes=m.match('松山市高岡町877-2')
   self.assertEqual(yes['precision'],'street')
