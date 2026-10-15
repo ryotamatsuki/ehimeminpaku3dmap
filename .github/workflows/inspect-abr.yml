@@ -1,0 +1,32 @@
+name: Inspect ABR reference API
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/inspect-abr.yml']
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: pip install requests
+      - name: Probe Matsuyama town API and byte-range support
+        run: |
+          python - <<'PY'
+          import requests
+          from urllib.parse import quote
+          root='https://japanese-addresses-v2.geoloniamaps.com/api/ja/'+quote('愛媛県')+'/'+quote('松山市')
+          for suffix in ('.json','-地番.txt','-住居表示.txt'):
+              try:
+                  r=requests.get(root+suffix,timeout=12,stream=True,headers={'Range':'bytes=0-511'})
+                  print('probe',suffix,'HTTP',r.status_code,'content-range',r.headers.get('Content-Range'),'len',r.headers.get('Content-Length'),'type',r.headers.get('Content-Type'),flush=True)
+                  if r.status_code==206:
+                      data=r.content
+                      print('first bytes',repr(data[:240]),flush=True)
+                  r.close()
+              except Exception as exc:print('probe',suffix,type(exc).__name__,str(exc)[:120],flush=True)
+          PY
