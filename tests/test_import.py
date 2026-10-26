@@ -28,6 +28,63 @@ class TestImporter(unittest.TestCase):
         parser.feed('<a href="/uploaded/attachment/190246.pdf">住宅宿泊事業に基づく届出住宅一覧（令和8年8月31日時点）</a>')
         self.assertEqual(len(parser.links),1)
 
+    def test_current_source_utf8_without_charset(self):
+        # Emulate a prefecture response where requests.text would be mojibake.
+        html=(
+            '<html><body><a href="/uploaded/attachment/192645.pdf">'
+            '<span>住宅宿泊事業に基づく</span>'
+            '<span>届出住宅一覧（令和８年８月３１日時点）</span>'
+            '</a></body></html>'
+        )
+        response=unittest.mock.Mock()
+        response.content=html.encode('utf-8')
+        response.encoding='ISO-8859-1'
+        response.text=response.content.decode('latin-1')
+        response.url=r.PAGE
+        session=unittest.mock.Mock()
+        session.get.return_value=response
+        url,date=r.current_source(session)
+        self.assertEqual(url,'https://www.pref.ehime.jp/uploaded/attachment/192645.pdf')
+        self.assertEqual(date,'2026-08-31')
+        session.get.assert_called_once_with(r.PAGE,timeout=30)
+
+    def test_current_source_selects_latest_dated_listing(self):
+        html=(
+            '<a href="/uploaded/attachment/111.pdf">'
+            '住宅宿泊事業に基づく届出住宅一覧（令和8年6月30日時点）</a>'
+            '<a href="/uploaded/attachment/222.pdf">'
+            '住宅宿泊事業に基づく届出住宅一覧（令和8年8月31日時点）</a>'
+        )
+        response=unittest.mock.Mock(content=html.encode('utf-8'),url=r.PAGE)
+        session=unittest.mock.Mock()
+        session.get.return_value=response
+        self.assertEqual(r.current_source(session),
+                         ('https://www.pref.ehime.jp/uploaded/attachment/222.pdf','2026-08-31'))
+
+    def test_current_source_fails_closed_when_listing_is_missing(self):
+        html='<a href="/uploaded/attachment/999.pdf">住宅の図面作成例</a>'
+        response=unittest.mock.Mock(content=html.encode('utf-8'),url=r.PAGE)
+        session=unittest.mock.Mock()
+        session.get.return_value=response
+        with self.assertRaisesRegex(ValueError,'Refusing stale pinned-PDF fallback'):
+            r.current_source(session)
+
+    def test_current_source_rejects_offsite_pdf_and_missing_date(self):
+        html=(
+            '<a href="https://example.com/list.pdf">'
+            '届出住宅一覧（令和8年8月31日時点）</a>'
+        )
+        response=unittest.mock.Mock(content=html.encode('utf-8'),url=r.PAGE)
+        session=unittest.mock.Mock()
+        session.get.return_value=response
+        with self.assertRaisesRegex(ValueError,'Cannot discover'):
+            r.current_source(session)
+        response.content=(
+            '<a href="/uploaded/attachment/192645.pdf">届出住宅一覧</a>'
+        ).encode('utf-8')
+        with self.assertRaisesRegex(ValueError,'Cannot parse official PDF snapshot date'):
+            r.current_source(session)
+
     def test_gsi_locality_boundary(self):
         f=[{'geometry':{'coordinates':[132.78,33.85]},'properties':{'title':'愛媛県今治市道後町2-10-33'}}]
         self.assertIsNone(r.plausible_gsi(f,'松山市道後町2-10-33'))

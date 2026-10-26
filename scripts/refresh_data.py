@@ -9,7 +9,7 @@ import argparse
 from collections import Counter
 from datetime import datetime, timezone
 from html.parser import HTMLParser
-from urllib.parse import urljoin
+from urllib.parse import urljoin, urlparse
 import json
 from pathlib import Path
 import re
@@ -21,7 +21,7 @@ import fitz
 import requests
 
 ROOT=Path(__file__).resolve().parents[1]
-DEFAULT_URL='https://www.pref.ehime.jp/uploaded/attachment/190246.pdf'
+DEFAULT_URL='https://www.pref.ehime.jp/uploaded/attachment/192645.pdf'
 PAGE='https://www.pref.ehime.jp/page/57100.html'
 CITIES=('四国中央市','久万高原町','新居浜市','八幡浜市','宇和島市','今治市','松山市',
        '西条市','大洲市','伊予市','西予市','東温市')
@@ -116,19 +116,41 @@ class SourceLinks(HTMLParser):
 
 
 def current_source(session: requests.Session) -> tuple[str,str]:
+    """Find the newest official listing PDF; never silently import an obsolete snapshot."""
     response=session.get(PAGE,timeout=30)
     response.raise_for_status()
-    parsed=SourceLinks();parsed.feed(response.text)
-    candidates=[(href,label) for href,label in parsed.links if
-                '届出住宅一覧' in label and '.pdf' in href.lower()]
+    # The prefecture site serves UTF-8 HTML. requests.Response.text can mojibake
+    # when HTTP Content-Type omits charset (requests may assume ISO-8859-1).
+    # Matching Japanese anchor text must not depend on that HTTP header.
+    try:
+        html=response.content.decode('utf-8-sig')
+    except UnicodeDecodeError as exc:
+        raise ValueError('Official landing page is not UTF-8; inspect the source encoding') from exc
+    parsed=SourceLinks()
+    parsed.feed(html)
+    candidates=[]
+    for href,label in parsed.links:
+        clean_label=re.sub(r'\s+','',unicodedata.normalize('NFKC',label))
+        url=urljoin(PAGE,href)
+        parts=urlparse(url)
+        if not (parts.scheme=='https' and parts.netloc=='www.pref.ehime.jp'
+                and parts.path.lower().endswith('.pdf')
+                and '届出住宅一覧' in clean_label):
+            continue
+        match=re.search(r'令和\s*(\d+)年\s*(\d+)月\s*(\d+)日',clean_label)
+        if not match:
+            raise ValueError(f'Cannot parse official PDF snapshot date: {label!r}')
+        y,m,d=map(int,match.groups())
+        iso_date=datetime(2018+y,m,d).date().isoformat()
+        candidates.append((iso_date,url))
     if not candidates:
-        print('WARNING: Cannot discover current PDF link from landing page; using pinned 2026-08-31 source.',file=sys.stderr)
-        return DEFAULT_URL,'2026-08-31'
-    href,label=candidates[0]
-    match=re.search(r'令和\s*(\d+)年\s*(\d+)月\s*(\d+)日',label)
-    if not match:raise ValueError('Cannot parse official PDF snapshot date')
-    y,m,d=map(int,match.groups())
-    return urljoin(PAGE,href),f'{2018+y:04d}-{m:02d}-{d:02d}'
+        pdf_links=[href for href,label in parsed.links if '.pdf' in href.lower()]
+        raise ValueError(
+            f'Cannot discover the official listings PDF on {response.url}; '
+            f'found {len(pdf_links)} PDF links. Refusing stale pinned-PDF fallback.'
+        )
+    source_date,pdf_url=max(candidates,key=lambda item:item[0])
+    return pdf_url,source_date
 
 
 def plausible_gsi(data, address: str):
@@ -213,6 +235,7 @@ def main():
         session=requests.Session()
         session.headers['User-Agent']='Mozilla/5.0 (compatible; EhimeMinpakuAtlas/0.1)'
         url,source_date=(args.url,args.source_date or '2026-08-31') if args.url else current_source(session)
+        print(f'Using official PDF: {url} (snapshot {source_date})',flush=True)
         r=session.get(url,timeout=50);r.raise_for_status();buf=r.content
     if not buf.startswith(b'%PDF'):raise ValueError('Unexpected/non-PDF response')
     result,anomalies=refresh(buf,args.no_geocode,args.cache,pdf_url=url,source_date=source_date)

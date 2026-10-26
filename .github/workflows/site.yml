@@ -36,7 +36,7 @@ jobs:
           python -m json.tool data/licensed_lodging.json >/dev/null
           if [ -f data/permit_coordinates.json ]; then python -m json.tool data/permit_coordinates.json >/dev/null; fi
   deploy:
-    if: github.event_name != 'pull_request'
+    if: github.event_name != 'pull_request' && (github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success')
     needs: validate
     environment:
       name: github-pages
