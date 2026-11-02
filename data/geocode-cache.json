@@ -2118,5 +2118,13 @@
     ],
     "precision": "district",
     "geocode_title": "愛媛県松山市泊町"
+  },
+  "西予市宇和町瀬戸190": {
+    "coord": [
+      132.514481,
+      33.417034
+    ],
+    "precision": "district",
+    "geocode_title": "愛媛県西予市宇和町瀬戸"
   }
 }

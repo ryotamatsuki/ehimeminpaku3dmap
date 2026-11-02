@@ -1,9 +1,9 @@
 {
   "source": "愛媛県「住宅宿泊事業法に基づく届出住宅一覧」",
   "source_url": "https://www.pref.ehime.jp/page/57100.html",
-  "pdf_url": "https://www.pref.ehime.jp/uploaded/attachment/190246.pdf",
+  "pdf_url": "https://www.pref.ehime.jp/uploaded/attachment/192645.pdf",
   "source_date": "2026-08-31",
-  "generated_at": "2026-10-19T09:11:35Z",
+  "generated_at": "2026-11-02T11:32:22Z",
   "scope": "prefecture",
   "method": "PDF text extraction (not individually audited) / GSI geocoder",
   "notice": "自動抽出した住所。原PDFと全件の照合・座標精度の保証はしていません。",
@@ -1833,14 +1833,14 @@
     },
     {
       "id": 166,
-      "address": "西予市宇和町190",
+      "address": "西予市宇和町瀬戸190",
       "city": "西予市",
       "coord": [
-        132.526596,
-        33.37524
+        132.514481,
+        33.417034
       ],
       "precision": "district",
-      "geocode_title": "愛媛県西予市宇和町さくら"
+      "geocode_title": "愛媛県西予市宇和町瀬戸"
     },
     {
       "id": 167,
